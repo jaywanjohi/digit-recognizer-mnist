@@ -1,0 +1,7 @@
+torch==2.1.0
+torchvision==0.16.0
+streamlit==1.30.0
+streamlit-drawable-canvas==0.9.3
+pillow==10.1.0
+numpy==1.26.2
+psycopg2-binary==2.9.9
