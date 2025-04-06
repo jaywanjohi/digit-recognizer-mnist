@@ -1,15 +1,14 @@
-# app.py
-import streamlit as st
-from streamlit_drawable_canvas import st_canvas
 from model import DigitCNN
-import torch
-import torch.nn.functional as F
-import numpy as np
 from PIL import Image, ImageOps
 import datetime
-import psycopg2
+import numpy as np
 import os
 import pandas as pd
+import psycopg2
+import streamlit as st
+from streamlit_drawable_canvas import st_canvas
+import torch
+import torch.nn.functional as F
 
 def get_connection():
     return psycopg2.connect(
@@ -69,7 +68,7 @@ if canvas_result.image_data is not None:
     img_tensor = torch.tensor(np.array(img), dtype=torch.float32).unsqueeze(0).unsqueeze(0) / 255.0
 
     true_label = st.number_input("True label:", min_value=0, max_value=9, step=1)
-    
+
     if st.button("Submit"):
         with torch.no_grad():
             output = model(img_tensor)
@@ -79,7 +78,6 @@ if canvas_result.image_data is not None:
 
         st.write(f"**Prediction:** {pred}")
         st.write(f"**Confidence:** {int(conf*100)}%")
-
 
         log_prediction(str(datetime.datetime.now()), pred, conf, int(true_label))
 
